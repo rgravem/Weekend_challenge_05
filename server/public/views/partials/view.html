@@ -1,7 +1,8 @@
 <h3>Pets Currently Promenading:</h3>
 <div ng-controller='viewController'>
   <p ng-repeat = 'x in dataToDom'>
-    <img ng-src= {{x.imageUrl}}>
+    <img ng-src= {{x.imageUrl}} alt="Sorry, pets being bashful"><br>
     {{x.name}} the {{x.animal}} is {{x.age}} years old
+    <button ng-click='removePet()'>Done walking</button>
   </p>
 </div>

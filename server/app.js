@@ -40,7 +40,7 @@ app.post('/addPet', urlencodedParser, bpJason, function(req, res){
     console.log('error:',err);
     res.sendStatus(500);
     }else{
-      console.log('successfully created assignment');
+      console.log('successfully created new pet');
       res.sendStatus(200);
   }
   });
@@ -53,6 +53,18 @@ app.put('/all', urlencodedParser, bpJason, function(req, res){
       console.log(err);
     }else{
       res.send(results);
+    }
+  });
+});
+// used put to delete because I couldn't successully get anything sent to server using delete
+app.put('/removePet', urlencodedParser, bpJason, function(req, res){
+  console.log('hit remove pet:', req.body);
+  furbabies.findByIdAndRemove(req.body.id, function(err, results){
+    if(err){
+      console.log('error:', err);
+    }else{
+      console.log('successfully deleted pet');
+      res.send(200);
     }
   });
 });
