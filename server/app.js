@@ -1,14 +1,17 @@
 var express= require('express');
 var app = express();
 var bodyParser = require("body-parser");
+var urlencodedParser = bodyParser.urlencoded( { extended: true } );
+var bpJason = bodyParser.json();
 var mongoose = require('mongoose');
 var path = require('path');
 var port = process.env.PORT || 3000;
 var mongoURI = 'mongodb://localhost:27017/pets';
 mongoose.connect(mongoURI);
 
+var furbabies = require('../model/pets.js');
+
 app.use( express.static( 'public' ) );
-app.use(bodyParser.urlencoded({extended:true}));
 
 app.listen(port, function(){
   console.log('server up on 3000');
@@ -20,8 +23,8 @@ app.get("/*", function(req,res){
     res.sendFile(path.join(__dirname, "/public/", file));
 });
 
-app.post('/addPet', function(req, res){
-  console.log('hit addPet post',req.body);
+app.post('/addPet', urlencodedParser, bpJason, function(req, res){
+  console.log('hit addPet post', req.body);
 
   var sentPet = req.body;
 
@@ -29,7 +32,7 @@ app.post('/addPet', function(req, res){
     name: sentPet.petName,
     animal: sentPet.animal,
     age: sentPet.age,
-    image_Url: sentPet.imageUrl
+    imageUrl: sentPet.imageUrl
   });
 
   newPet.save(function(err){
@@ -40,5 +43,16 @@ app.post('/addPet', function(req, res){
       console.log('successfully created assignment');
       res.sendStatus(200);
   }
+  });
+});
+
+app.put('/all', urlencodedParser, bpJason, function(req, res){
+  console.log('base url hit');
+  furbabies.find({}, function(err, results){
+    if (err) {
+      console.log(err);
+    }else{
+      res.send(results);
+    }
   });
 });
