@@ -1,2 +1,7 @@
+<h3>Pets Currently Promenading:</h3>
 <div ng-controller='viewController'>
-  <h3>Pets Currently Promenading:</h3>
+  <p ng-repeat = 'x in dataToDom'>
+    <img ng-src= {{x.imageUrl}}>
+    {{x.name}} the {{x.animal}} is {{x.age}} years old
+  </p>
+</div>

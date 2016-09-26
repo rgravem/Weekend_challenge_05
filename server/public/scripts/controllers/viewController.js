@@ -7,7 +7,7 @@ myApp.controller("viewController", ["$scope", "$http", function($scope, $http){
   }).then(function(response){
   var array = response.data;
   console.log('this is the array:', array);
-  // $scope.dataToDom = array;
+  $scope.dataToDom = array;
   });//then
 
 }]);
