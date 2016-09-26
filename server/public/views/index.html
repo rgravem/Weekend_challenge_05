@@ -1,10 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="myApp">
   <head>
     <meta charset="utf-8">
-    <title>Pi Pets Place</title>
+    <title>Pi Pets Promenade</title>
+    <script src="/vendors/angular.min.js"></script>
+    <script src="/vendors/angular-route.min.js"></script>
+    <script src="/scripts/client.js"></script>
+    <script src="/scripts/controllers/homeController.js"></script>
+    <script src="/scripts/controllers/addPetController.js"></script>
+    <script src="/scripts/controllers/viewController.js"></script>
   </head>
   <body>
-    <h1> Pi Pets Place
+    <h1> Pi Pets Promenade</h1>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#addPet">Add Pet</a></li>
+      <li><a href="#view">View Pets</a></li>
+    </ul>
+    <main ng-view></main>
+
   </body>
 </html>
