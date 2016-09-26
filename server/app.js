@@ -8,9 +8,9 @@ var path = require('path');
 var port = process.env.PORT || 3000;
 var mongoURI = 'mongodb://localhost:27017/pets';
 mongoose.connect(mongoURI);
-
+// from model
 var furbabies = require('../model/pets.js');
-
+// use static folder
 app.use( express.static( 'public' ) );
 
 app.listen(port, function(){
@@ -22,19 +22,19 @@ app.get("/*", function(req,res){
     var file = req.params[0] || "/views/index.html";
     res.sendFile(path.join(__dirname, "/public/", file));
 });
-
+// add pet post
 app.post('/addPet', urlencodedParser, bpJason, function(req, res){
   console.log('hit addPet post', req.body);
-
+  // object from server
   var sentPet = req.body;
-
+  // new document for collection furbabies
   var newPet = new furbabies({
     name: sentPet.petName,
     animal: sentPet.animal,
     age: sentPet.age,
     imageUrl: sentPet.imageUrl
   });
-
+  // save to database
   newPet.save(function(err){
     if(err){
     console.log('error:',err);
@@ -45,7 +45,7 @@ app.post('/addPet', urlencodedParser, bpJason, function(req, res){
   }
   });
 });
-
+// used put route should have been a get, but first get route was effecting it. Need to troubleshoot
 app.put('/all', urlencodedParser, bpJason, function(req, res){
   console.log('base url hit');
   furbabies.find({}, function(err, results){
@@ -56,8 +56,8 @@ app.put('/all', urlencodedParser, bpJason, function(req, res){
     }
   });
 });
-// used put to delete because I couldn't successully get anything sent to server using delete
-app.put('/removePet', urlencodedParser, bpJason, function(req, res){
+// delete route
+app.delete('/removePet', urlencodedParser, bpJason, function(req, res){
   console.log('hit remove pet:', req.body);
   furbabies.findByIdAndRemove(req.body.id, function(err, results){
     if(err){

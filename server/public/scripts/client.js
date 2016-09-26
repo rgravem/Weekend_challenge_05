@@ -1,5 +1,5 @@
 var myApp = angular.module("myApp", ["ngRoute"]);
-
+// route for partials
 myApp.config(["$routeProvider", function($routeProvider){
     $routeProvider.
       when("/home", {
@@ -17,4 +17,4 @@ myApp.config(["$routeProvider", function($routeProvider){
       otherwise({
         redirectTo: "/home"
       });
-}]);
+}]); // end route
